@@ -1,22 +1,26 @@
 const projects = [
     {
-        image: "ai_growth_platform.jpg",
-        title: "AI Professional Growth App"
+        image: "skyone-video.mov",
+        title: "Skyone",
+        type: "video"
     },
     {
-        image: "office_suite_app.jpg",
-        title: "Office Suite App"
+        image: "cocpit-video.mov",
+        title: "Cocpit",
+        type: "video"
     },
     {
-        image: "fintech_dashboard.jpg",
-        title: "Aura Finance Dashboard"
-    }
+        image: "dass.png",
+        title: "Dass",
+        type: "image"
+    },
 ];
 
 
 const activeProject = document.getElementById("activeProject");
 const nextProject = document.getElementById("nextProject");
 const projectImage = document.getElementById("projectImage");
+const projectVideo = document.getElementById("projectVideo");
 const projectTitle = document.getElementById("projectTitle");
 const dots = document.querySelectorAll(".project-dot");
 
@@ -25,6 +29,41 @@ let currentProject = 0;
 let isAnimating = false;
 
 const duration = 600;
+
+
+// ----------------------------------------
+// Update media
+// ----------------------------------------
+
+function updateMedia(project) {
+
+    // Hide both
+    projectImage.classList.add("hidden");
+    projectVideo.classList.add("hidden");
+
+    // Stop video
+    projectVideo.pause();
+
+    // Video
+    if (project.type === "video") {
+
+        projectVideo.src = project.image;
+        projectVideo.classList.remove("hidden");
+
+        projectVideo.load();
+        projectVideo.play();
+
+    }
+
+    // Image
+    else {
+
+        projectImage.src = project.image;
+        projectImage.classList.remove("hidden");
+
+    }
+
+}
 
 
 // ----------------------------------------
@@ -37,13 +76,13 @@ function updateDots() {
 
         if (index === currentProject) {
 
-            dot.classList.remove("bg-white");
+            dot.classList.remove("bg-muted");
             dot.classList.add("bg-accent");
 
         } else {
 
             dot.classList.remove("bg-accent");
-            dot.classList.add("bg-white");
+            dot.classList.add("bg-muted");
 
         }
 
@@ -178,8 +217,11 @@ function changeProject(direction) {
     setTimeout(function () {
 
         // Change project content
-        projectImage.src = projects[nextIndex].image;
-        projectTitle.textContent = projects[nextIndex].title;
+        const project = projects[nextIndex];
+
+        updateMedia(project);
+
+        projectTitle.textContent = project.title;
 
 
         // ----------------------------------------
@@ -260,3 +302,5 @@ window.addEventListener("wheel", function (event) {
 // ----------------------------------------
 
 updateDots();
+
+updateMedia(projects[currentProject]);

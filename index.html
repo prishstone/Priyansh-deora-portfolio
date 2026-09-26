@@ -46,7 +46,9 @@
           Priyansh Deora
         </h1>
 
-        <i class="ph ph-arrow-bend-up-right text-accent text-[16px]"></i>
+        <a href="about.html" class="hover:scale-[1.20] transition-transform duration-200"><i
+            class="ph ph-arrow-bend-up-right text-accent text-[16px]"></i>
+        </a>
       </div>
 
       <h2 class="font-regular text-[20px] text-muted">
@@ -55,16 +57,28 @@
 
       <div class="flex w-fit h-[32px] gap-[8px] mt-[12px]">
 
-        <div class="w-[32px] h-[32px] flex items-center justify-center bg-white rounded-[8px]">
-          <i class="ph ph-phone text-[16px] text-black"></i>
+        <div
+          class="w-[32px] h-[32px] flex items-center justify-center bg-white rounded-[8px] hover:scale-[1.12] transition-transform duration-200">
+          <a href="tel:+919373303231"><i class="ph ph-phone text-[16px] text-black"></i></a>
         </div>
 
-        <div class="w-[32px] h-[32px] flex items-center justify-center bg-white rounded-[8px]">
-          <i class="ph ph-envelope text-[16px] text-black"></i>
+        <div
+          class="w-[32px] h-[32px] flex items-center justify-center bg-white rounded-[8px] hover:scale-[1.12] transition-transform duration-200">
+          <a href="mailto:pushpendradevada143@gmail.com"><i class="ph ph-envelope text-[16px] text-black"></i></a>
         </div>
 
-        <div class="w-[32px] h-[32px] flex items-center justify-center bg-white rounded-[8px]">
-          <i class="ph ph-linkedin-logo text-[16px] text-black"></i>
+        <div
+          class="w-[32px] h-[32px] flex items-center justify-center bg-white rounded-[8px] hover:scale-[1.12] transition-transform duration-200">
+          <a href="https://www.linkedin.com/in/priyansh-singh-deora-ab9050268/" target="_blank">
+            <i class="ph ph-linkedin-logo text-[16px] text-black"></i>
+          </a>
+        </div>
+
+        <div
+          class="w-[32px] h-[32px] flex items-center justify-center bg-white rounded-[8px] hover:scale-[1.12] transition-transform duration-200">
+          <a href="https://www.behance.net/allinrajasth" target="_blank">
+            <i class="ph ph-behance-logo text-[16px] text-black"></i>
+          </a>
         </div>
 
       </div>
@@ -78,31 +92,39 @@
       <div class="relative w-[392px] h-[318px]">
 
         <!-- Active Project -->
-        <div id="activeProject" class="absolute left-0 top-0 w-[300px] h-[300px] bg-white rounded-[16px] p-[12px]">
+        <div id="activeProject"
+          class="absolute left-0 top-0 w-[300px] h-[300px] bg-white/30 bg-[url('main-bg.jpg')] bg-cover bg-blend-overlay rounded-[24px] px-[20px] py-[10px]">
 
-          <img id="projectImage" src="ai_growth_platform.jpg" class="w-full h-[240px] object-cover rounded-[10px]">
+          <!-- Image -->
+          <img id="projectImage" src="" class="hidden w-full h-[240px] object-contain rounded-[8px]">
 
+          <!-- Video -->
+          <video id="projectVideo" src="" class="hidden w-full h-[240px] object-contain rounded-[8px]" autoplay muted
+            loop playsinline>
+          </video>
+
+          <!-- Project Title -->
           <p id="projectTitle" class="text-[16px] text-black mt-[12px]">
-            AI Professional Growth App
+            Skyone
           </p>
 
         </div>
 
 
         <!-- Upcoming Project -->
-        <div id="nextProject"
-          class="absolute left-[312px] top-[220px] w-[80px] h-[80px] bg-white opacity-60 rounded-[8px]">
+        <div id="nextProject" class="absolute left-[312px] top-[220px] w-[80px] h-[80px]  opacity-60 rounded-[8px]">
         </div>
+
 
 
         <!-- Dots -->
         <div class="absolute left-0 top-[312px] w-[300px] flex justify-center gap-[8px]">
 
-          <div class="project-dot w-[6px] h-[6px] rounded-full bg-accent"></div>
+          <div class="project-dot w-[4px] h-[4px] rounded-full bg-accent"></div>
 
-          <div class="project-dot w-[6px] h-[4px] rounded-full bg-white"></div>
+          <div class="project-dot w-[4px] h-[4px] rounded-full bg-muted "></div>
 
-          <div class="project-dot w-[6px] h-[4px] rounded-full bg-white"></div>
+          <div class="project-dot w-[4px] h-[4px] rounded-full bg-muted"></div>
 
         </div>
       </div>

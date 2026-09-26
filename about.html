@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Priyansh Deora Portfolio</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font & Icon -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.phosphoricons.com" crossorigin>
+
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        space: ['Geist', 'sans-serif']
+                    },
+                    colors: {
+                        bg: '#F3EDFF',
+                        black: '#17131F',
+                        white: '#FFFFFF',
+                        muted: '#AFA2C1',
+                        accent: '#7057D9'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js">
+    </script>
+
+    <style>
+        html {
+            scrollbar-width: none;
+        }
+
+        html::-webkit-scrollbar {
+            display: none;
+        }
+
+        body {
+            scrollbar-width: none;
+        }
+
+        body::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+
+
+<body class="bg-bg overflow-x-hidden">
+
+
+    <!-- Intro -->
+    <div class="min-h-screen flex items-center px-[100px]">
+
+        <div class="w-fit h-fit">
+
+            <div class="flex items-center gap-2">
+
+                <h1 class="font-regular text-[32px] text-black">
+                    Priyansh Deora
+                </h1>
+
+                <a href="index.html" class="hover:scale-[1.20] transition-transform duration-200"> <i
+                        class="ph ph-arrow-bend-up-left text-accent text-[16px]"></i></a>
+
+            </div>
+
+            <h2 class=" font-regular text-[20px] text-muted">
+                Product Designer, UX Strategist & UI Engineer
+            </h2>
+
+            <div class="flex w-fit h-[32px] gap-[8px] mt-[12px]">
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- About Content -->
+    <div class="px-[100px] -mt-[calc(50vh-100px)] pb-[120px]">
+
+        <div class="w-[560px]">
+
+
+            <!-- About -->
+            <p class="text-[18px] leading-[1.5] text-black">
+
+                I design products, untangle UX problems,
+                <span class="text-muted">
+                    and turn ideas into interfaces that feel obvious.
+                </span>
+
+            </p>
+
+
+            <p class="text-[18px] leading-[1.5] text-muted mt-[20px]">
+
+                I enjoy getting into the messy parts of a product —
+                understanding <span class="text-black">what isn’t working</span>,
+                questioning <span class="text-black">what already exists</span>,
+                and finding simpler ways <span class="text-black">to make it work.</span>
+
+            </p>
+
+
+            <p class="text-[18px] leading-[1.5] text-muted mt-[20px]">
+
+                I like good ideas,
+                <span class="text-black">thoughtful interactions,</span>
+                and interfaces that don't need to
+                <span class="text-black">explain themselves.</span>
+
+            </p>
+
+
+            <!-- Professional Summary -->
+            <div class="mt-[100px]">
+
+                <p class="text-[14px] text-muted mb-[8px]">
+                    Professional summary:
+                </p>
+
+                <p class="text-[18px] text-black">
+                    Work experience
+                    <span class="text-muted">(02+)</span>
+                </p>
+
+                <p class="text-[18px] text-black mt-[8px]">
+                    Products Designed
+                    <span class="text-muted">(06+)</span>
+                </p>
+
+                <p class="text-[18px] text-black mt-[8px]">
+                    Domains Worked
+                    <span class="text-muted">(04+)</span>
+                </p>
+
+            </div>
+
+
+            <!-- Location -->
+            <p class="text-[18px] leading-[1.5] text-muted mt-[100px]">
+
+                Based in
+                <span class="text-black">
+                    Kolhapur, India.
+                </span>
+
+                designing digital products,
+                making music for people everywhere.
+
+            </p>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- 3D Boombox -->
+    <div class="fixed right-[40px] top-1/2 -translate-y-1/2 w-[520px] h-[520px]">
+
+        <model-viewer src="boombox_4k.blend 2/boombox_4k.gltf" class="w-full h-full" camera-controls disable-zoom
+            interaction-prompt="none" shadow-intensity="0" exposure="1" environment-image="neutral"
+            camera-orbit="45deg 70deg 2.5m" field-of-view="30deg">
+        </model-viewer>
+
+    </div>
+
+
+</body>
+
+</html>
