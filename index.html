@@ -36,8 +36,8 @@
 <body class="bg-bg overflow-hidden">
 
   <!-- Home -->
-  <div class="min-h-screen flex items-center justify-between px-[100px]">
-
+  <div
+    class="min-h-screen flex flex-col items-center justify-center px-[24px] pt-[120px] md:flex-row md:items-center md:justify-between md:px-[100px] md:pt-0">
     <!-- Intro -->
     <div class="w-fit h-fit flex flex-col justify-center">
 
@@ -87,10 +87,9 @@
 
 
     <!-- Projects -->
-    <div class="absolute right-[-40px] top-1/2 -translate-y-1/2">
+    <div class="relative mt-[48px] md:absolute md:right-[-40px] md:top-1/2 md:mt-0 md:-translate-y-1/2">
 
-      <div class="relative w-[392px] h-[318px]">
-
+      <div class="relative w-[300px] h-[318px] md:w-[392px]">
         <!-- Active Project -->
         <div id="activeProject"
           class="absolute left-0 top-0 w-[300px] h-[300px] bg-white/30 bg-[url('main-bg.jpg')] bg-cover bg-blend-overlay rounded-[24px] px-[20px] py-[10px]">
@@ -130,7 +129,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script src="supabase.js"></script>
-
 <script src="project.js"></script>
 
 </html>

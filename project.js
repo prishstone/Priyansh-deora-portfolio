@@ -476,6 +476,42 @@
 
     });
 
+    // Mobile swipe
+    let touchStartY = 0;
+    let touchEndY = 0;
+
+    window.addEventListener("touchstart", function (event) {
+
+        touchStartY = event.touches[0].clientY;
+
+    }, {
+        passive: true
+    });
+
+
+    window.addEventListener("touchend", function (event) {
+
+        touchEndY = event.changedTouches[0].clientY;
+
+        const swipeDistance = touchStartY - touchEndY;
+
+        if (isAnimating) return;
+        if (!projects.length) return;
+
+        // Swipe UP = FORWARD
+        if (swipeDistance > 50) {
+            changeProject("forward");
+        }
+
+        // Swipe DOWN = BACKWARD
+        if (swipeDistance < -50) {
+            changeProject("backward");
+        }
+
+    }, {
+        passive: true
+    });
+
 
     // ----------------------------------------
     // Start

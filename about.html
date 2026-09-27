@@ -60,8 +60,20 @@
 <body class="bg-bg overflow-x-hidden">
 
 
+    <!-- 3D Boombox Hero -->
+    <div
+        class="relative w-full h-[420px] mt-[40px] md:fixed md:right-[40px] md:top-1/2 md:-translate-y-1/2 md:w-[520px] md:h-[520px] md:mt-0">
+
+        <model-viewer src="boombox_4k.blend 2/boombox_4k.gltf" class="w-full h-full" camera-controls disable-zoom
+            interaction-prompt="none" shadow-intensity="0" exposure="1" environment-image="neutral"
+            camera-orbit="45deg 70deg 2.5m" field-of-view="30deg">
+        </model-viewer>
+
+    </div>
+
+
     <!-- Intro -->
-    <div class="min-h-screen flex items-center px-[100px]">
+    <div class="px-[24px] pt-[20px] pb-[80px] md:min-h-screen md:flex md:items-center md:px-[100px] md:pt-0 md:pb-0">
 
         <div class="w-fit h-fit">
 
@@ -71,12 +83,15 @@
                     Priyansh Deora
                 </h1>
 
-                <a href="index.html" class="hover:scale-[1.20] transition-transform duration-200"> <i
-                        class="ph ph-arrow-bend-up-left text-accent text-[16px]"></i></a>
+                <a href="index.html" class="hover:scale-[1.20] transition-transform duration-200">
+
+                    <i class="ph ph-arrow-bend-up-left text-accent text-[16px]"></i>
+
+                </a>
 
             </div>
 
-            <h2 class=" font-regular text-[20px] text-muted">
+            <h2 class="font-regular text-[20px] text-muted">
                 Product Designer, UX Strategist & UI Engineer
             </h2>
 
@@ -90,9 +105,9 @@
 
 
     <!-- About Content -->
-    <div class="px-[100px] -mt-[calc(50vh-100px)] pb-[120px]">
+    <div class="px-[24px] pb-[80px] md:px-[100px] md:-mt-[calc(50vh-100px)] md:pb-[120px]">
 
-        <div class="w-[560px]">
+        <div class="w-full max-w-[560px]">
 
 
             <!-- About -->
@@ -127,7 +142,7 @@
 
 
             <!-- Professional Summary -->
-            <div class="mt-[100px]">
+            <div class="mt-[80px] md:mt-[100px]">
 
                 <p class="text-[14px] text-muted mb-[8px]">
                     Professional summary:
@@ -152,7 +167,7 @@
 
 
             <!-- Location -->
-            <p class="text-[18px] leading-[1.5] text-muted mt-[100px]">
+            <p class="text-[18px] leading-[1.5] text-muted mt-[80px] md:mt-[100px]">
 
                 Based in
                 <span class="text-black">
@@ -166,17 +181,6 @@
 
 
         </div>
-
-    </div>
-
-
-    <!-- 3D Boombox -->
-    <div class="fixed right-[40px] top-1/2 -translate-y-1/2 w-[520px] h-[520px]">
-
-        <model-viewer src="boombox_4k.blend 2/boombox_4k.gltf" class="w-full h-full" camera-controls disable-zoom
-            interaction-prompt="none" shadow-intensity="0" exposure="1" environment-image="neutral"
-            camera-orbit="45deg 70deg 2.5m" field-of-view="30deg">
-        </model-viewer>
 
     </div>
 

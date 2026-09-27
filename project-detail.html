@@ -51,50 +51,54 @@
             display: none;
         }
     </style>
-
 </head>
 
 
 <body class="bg-bg overflow-x-hidden">
 
 
-    <!-- Left Project Content -->
-    <div class="w-1/2 px-[100px] pr-[120px] pb-[120px]">
+    <!-- Project Visual -->
+    <div
+        class="relative w-full h-[360px] px-[24px] pt-[24px] md:fixed md:left-1/2 md:right-[40px] md:top-[100px] md:h-[calc(100vh-200px)] md:px-0 md:pt-0 md:rounded-2xl">
 
-        <div class="w-full">
+        <img id="projectImage" src="" class="hidden w-full h-full object-cover rounded-2xl">
+
+        <video id="projectVideo" src="" class="hidden w-full h-full object-cover rounded-2xl" autoplay muted loop
+            playsinline>
+        </video>
+
+    </div>
+
+
+    <!-- Left Project Content -->
+    <div class="w-full px-[24px] pt-[40px] pb-[80px] md:w-1/2 md:px-[100px] md:pt-0 md:pb-[120px]">
+
+        <div class="w-full max-w-[560px]">
 
 
             <!-- Project Intro -->
-            <div class="min-h-screen flex items-center">
+            <div class="min-h-0 flex items-center pt-[20px] pb-[80px] md:min-h-screen md:pt-0 md:pb-0">
 
                 <div>
 
                     <div class="flex items-center gap-2">
 
                         <h1 id="projectTitle" class="font-regular text-[32px] text-black">
-
                             Skyone
-
                         </h1>
-
 
                         <a href="index.html" class="hover:scale-[1.20] transition-transform duration-200">
 
-                            <i class="ph ph-arrow-bend-up-left text-accent text-[16px]"></i>
+                            <i class="ph ph-arrow-bend-up-left text-accent text-[16px]">
+                            </i>
 
                         </a>
 
                     </div>
 
-
                     <h2 id="projectCategory" class="font-regular text-[20px] text-muted">
-
                         Interior design website
-
                     </h2>
-
-
-                    <!-- Project Link -->
 
                     <div class="flex w-fit h-[32px] gap-[8px] mt-[12px]">
 
@@ -103,7 +107,8 @@
 
                             <a id="projectLink" href="#" target="_blank">
 
-                                <i class="ph ph-arrow-square-out text-[16px] text-black"></i>
+                                <i class="ph ph-arrow-square-out text-[16px] text-black">
+                                </i>
 
                             </a>
 
@@ -111,102 +116,71 @@
 
                     </div>
 
-
                 </div>
 
             </div>
-
 
 
             <!-- Overview -->
-
-            <div class="mb-[100px] -mt-[calc(50vh-100px)]">
+            <div class="mb-[80px] md:mb-[100px] md:-mt-[calc(50vh-100px)]">
 
                 <p class="text-[14px] text-muted mb-[8px]">
-
                     Overview
-
                 </p>
 
-
                 <p id="projectOverview" class="text-[18px] leading-[1.5] text-black">
-
                 </p>
 
             </div>
-
 
 
             <!-- What I worked on -->
-
-            <div class="mb-[100px]">
+            <div class="mb-[80px] md:mb-[100px]">
 
                 <p class="text-[14px] text-muted mb-[8px]">
-
                     What I worked on
-
                 </p>
 
-
                 <p id="projectWorkedOn" class="text-[18px] leading-[1.5] text-black">
-
                 </p>
 
             </div>
-
 
 
             <!-- Challenge -->
-
-            <div class="mb-[100px]">
+            <div class="mb-[80px] md:mb-[100px]">
 
                 <p class="text-[14px] text-muted mb-[8px]">
-
                     Challenge
-
                 </p>
 
-
                 <p id="projectChallenge" class="text-[18px] leading-[1.5] text-black">
-
                 </p>
 
             </div>
-
 
 
             <!-- Approach -->
-
-            <div class="mb-[100px]">
+            <div class="mb-[80px] md:mb-[100px]">
 
                 <p class="text-[14px] text-muted mb-[8px]">
-
                     Approach
-
                 </p>
 
-
-                <div id="projectApproach" class="text-[18px] leading-[1.5] text-black">
-
-                </div>
+                <p id="projectApproach" class="text-[18px] leading-[1.5] text-black">
+                </p>
 
             </div>
 
 
-
             <!-- Reflection -->
-
-            <div class="pb-[120px]">
+            <div class="pb-[80px] md:pb-[120px]">
 
                 <p class="text-[14px] text-muted mb-[8px]">
-
                     Reflection
-
                 </p>
 
-
                 <p id="projectReflection" class="text-[18px] leading-[1.5] text-black">
-
                 </p>
 
             </div>
@@ -217,39 +191,13 @@
     </div>
 
 
-
-    <!-- Fixed Project Visual -->
-
-    <div class="fixed left-1/2 right-[40px] top-[100px] h-[calc(100vh-200px)] rounded-2xl">
-
-
-        <!-- Image -->
-
-        <img id="projectImage" src="" class="hidden w-full h-full object-cover rounded-2xl">
-
-
-        <!-- Video -->
-
-        <video id="projectVideo" src="" class="hidden w-full h-full object-cover rounded-2xl" autoplay muted loop
-            playsinline>
-
-        </video>
-
-
-    </div>
-
-
-
     <!-- Supabase -->
-
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script src="supabase.js"></script>
 
 
-
     <!-- Project Detail -->
-
     <script>
 
             (function () {
@@ -259,15 +207,11 @@
                 // Get project slug
                 // ----------------------------------------
 
-                const params =
-                    new URLSearchParams(
-                        window.location.search
-                    );
+                const params = new URLSearchParams(
+                    window.location.search
+                );
 
-
-                const slug =
-                    params.get("slug");
-
+                const slug = params.get("slug");
 
 
                 // ----------------------------------------
@@ -277,46 +221,35 @@
                 const projectTitle =
                     document.getElementById("projectTitle");
 
-
                 const projectCategory =
                     document.getElementById("projectCategory");
-
 
                 const projectLink =
                     document.getElementById("projectLink");
 
-
                 const projectLinkContainer =
                     document.getElementById("projectLinkContainer");
-
 
                 const projectOverview =
                     document.getElementById("projectOverview");
 
-
                 const projectWorkedOn =
                     document.getElementById("projectWorkedOn");
-
 
                 const projectChallenge =
                     document.getElementById("projectChallenge");
 
-
                 const projectApproach =
                     document.getElementById("projectApproach");
-
 
                 const projectReflection =
                     document.getElementById("projectReflection");
 
-
                 const projectImage =
                     document.getElementById("projectImage");
 
-
                 const projectVideo =
                     document.getElementById("projectVideo");
-
 
 
                 // ----------------------------------------
@@ -337,20 +270,13 @@
                     }
 
 
-
                     const { data, error } =
                         await window.supabaseClient
-
                             .from("projects")
-
                             .select("*")
-
                             .eq("slug", slug)
-
                             .eq("published", true)
-
                             .single();
-
 
 
                     console.log(
@@ -358,12 +284,10 @@
                         data
                     );
 
-
                     console.log(
                         "PROJECT ERROR:",
                         error
                     );
-
 
 
                     if (error) {
@@ -378,7 +302,6 @@
                     }
 
 
-
                     // ----------------------------------------
                     // Project information
                     // ----------------------------------------
@@ -386,10 +309,8 @@
                     projectTitle.textContent =
                         data.title || "";
 
-
                     projectCategory.textContent =
                         data.category || "";
-
 
 
                     // ----------------------------------------
@@ -412,115 +333,28 @@
                     }
 
 
-
                     // ----------------------------------------
-                    // Overview
+                    // Text content
                     // ----------------------------------------
 
                     projectOverview.textContent =
                         data.overview || "";
 
-
-
-                    // ----------------------------------------
-                    // What I worked on
-                    // ----------------------------------------
-
                     projectWorkedOn.textContent =
                         data.what_i_worked_on || "";
-
-
-
-                    // ----------------------------------------
-                    // Challenge
-                    // ----------------------------------------
 
                     projectChallenge.textContent =
                         data.challenge || "";
 
-
-
-                    // ----------------------------------------
-                    // Approach
-                    // ----------------------------------------
-
-                    projectApproach.innerHTML = "";
-
-
-                    if (data.approach) {
-
-
-                        const points =
-                            data.approach
-                                .split("\n")
-                                .map(function (point) {
-
-                                    return point.trim();
-
-                                })
-                                .filter(function (point) {
-
-                                    return point.length > 0;
-
-                                });
-
-
-
-                        points.forEach(function (point) {
-
-
-                            const paragraph =
-                                document.createElement("p");
-
-
-                            paragraph.textContent =
-                                point;
-
-
-                            paragraph.className =
-                                "mb-[16px]";
-
-
-                            projectApproach.appendChild(
-                                paragraph
-                            );
-
-
-                        });
-
-                    }
-
-
-
-                    // ----------------------------------------
-                    // Reflection
-                    // ----------------------------------------
+                    projectApproach.textContent =
+                        data.approach || "";
 
                     projectReflection.textContent =
                         data.reflection || "";
 
 
-
                     // ----------------------------------------
                     // Media
-                    // ----------------------------------------
-
-                    projectImage.classList.add(
-                        "hidden"
-                    );
-
-
-                    projectVideo.classList.add(
-                        "hidden"
-                    );
-
-
-                    projectVideo.pause();
-
-
-
-                    // ----------------------------------------
-                    // Video
                     // ----------------------------------------
 
                     if (
@@ -528,39 +362,27 @@
                         data.media_url
                     ) {
 
-
                         projectVideo.src =
                             data.media_url;
-
 
                         projectVideo.classList.remove(
                             "hidden"
                         );
 
-
                         projectVideo.load();
-
 
                         projectVideo.play();
 
-
                     }
 
-
-
-                    // ----------------------------------------
-                    // Image
-                    // ----------------------------------------
 
                     else if (
                         data.media_type === "image" &&
                         data.media_url
                     ) {
 
-
                         projectImage.src =
                             data.media_url;
-
 
                         projectImage.classList.remove(
                             "hidden"
@@ -568,9 +390,7 @@
 
                     }
 
-
                 }
-
 
 
                 // ----------------------------------------
