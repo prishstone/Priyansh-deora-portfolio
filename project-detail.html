@@ -162,15 +162,13 @@
 
 
             <!-- Approach -->
-            <div class="mb-[80px] md:mb-[100px]">
-
+            <div class="mb-[40px] md:mb-[100px]">
                 <p class="text-[14px] text-muted mb-[8px]">
                     Approach
                 </p>
 
-                <p id="projectApproach" class="text-[18px] leading-[1.5] text-black">
-                </p>
-
+                <div id="projectApproach" class="text-[18px] leading-[1.5] text-black">
+                </div>
             </div>
 
 
@@ -347,9 +345,38 @@
                     projectChallenge.textContent =
                         data.challenge || "";
 
-                    projectApproach.textContent =
-                        data.approach || "";
+                    projectApproach.innerHTML = "";
 
+                    if (data.approach) {
+
+                        const points =
+                            data.approach
+                                .split("\n")
+                                .map(function (point) {
+                                    return point.trim();
+                                })
+                                .filter(function (point) {
+                                    return point.length > 0;
+                                });
+
+                        points.forEach(function (point) {
+
+                            const paragraph =
+                                document.createElement("p");
+
+                            paragraph.textContent =
+                                point;
+
+                            paragraph.className =
+                                "mb-[16px]";
+
+                            projectApproach.appendChild(
+                                paragraph
+                            );
+
+                        });
+
+                    }
                     projectReflection.textContent =
                         data.reflection || "";
 
