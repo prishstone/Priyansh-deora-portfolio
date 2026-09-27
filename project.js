@@ -477,11 +477,12 @@
     });
 
     // Mobile swipe
+    let touchStartX = 0;
     let touchStartY = 0;
-    let touchEndY = 0;
 
-    window.addEventListener("touchstart", function (event) {
+    activeProject.addEventListener("touchstart", function (event) {
 
+        touchStartX = event.touches[0].clientX;
         touchStartY = event.touches[0].clientY;
 
     }, {
@@ -489,22 +490,32 @@
     });
 
 
-    window.addEventListener("touchend", function (event) {
-
-        touchEndY = event.changedTouches[0].clientY;
-
-        const swipeDistance = touchStartY - touchEndY;
+    activeProject.addEventListener("touchend", function (event) {
 
         if (isAnimating) return;
         if (!projects.length) return;
 
-        // Swipe UP = FORWARD
-        if (swipeDistance > 50) {
+        const touchEndX = event.changedTouches[0].clientX;
+        const touchEndY = event.changedTouches[0].clientY;
+
+        const swipeX = touchStartX - touchEndX;
+        const swipeY = touchStartY - touchEndY;
+
+        const horizontalDistance = Math.abs(swipeX);
+        const verticalDistance = Math.abs(swipeY);
+
+        // Ignore vertical swipes
+        if (verticalDistance > horizontalDistance) {
+            return;
+        }
+
+        // Swipe LEFT = FORWARD
+        if (swipeX > 50) {
             changeProject("forward");
         }
 
-        // Swipe DOWN = BACKWARD
-        if (swipeDistance < -50) {
+        // Swipe RIGHT = BACKWARD
+        if (swipeX < -50) {
             changeProject("backward");
         }
 
