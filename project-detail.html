@@ -62,6 +62,10 @@
     md:fixed md:left-1/2 md:top-[100px]
     md:w-[calc(50vw-40px)] md:h-[calc(100vh-200px)]
     md:px-0 md:pt-0 md:rounded-2xl">
+
+        <!-- Media Skeleton Loader -->
+        <div id="mediaLoader" class="w-full h-full bg-white/40 border border-white/30 rounded-2xl animate-pulse"></div>
+
         <img id="projectImage" src="" class="hidden w-full h-full object-cover rounded-2xl">
 
         <video id="projectVideo" src="" class="hidden w-full h-full object-cover rounded-2xl" autoplay muted loop
@@ -84,8 +88,7 @@
 
                     <div class="flex items-center gap-2">
 
-                        <h1 id="projectTitle" class="font-regular text-[32px] text-black">
-                            Skyone
+                        <h1 id="projectTitle" class="min-h-[40px] font-regular text-[32px] text-black">
                         </h1>
 
                         <a href="index.html" class="hover:scale-[1.20] transition-transform duration-200">
@@ -97,8 +100,7 @@
 
                     </div>
 
-                    <h2 id="projectCategory" class="font-regular text-[20px] text-muted">
-                        Interior design website
+                    <h2 id="projectCategory" class="min-h-[28px] font-regular text-[20px] text-muted">
                     </h2>
 
                     <div class="flex w-fit h-[32px] gap-[8px] mt-[12px]">
@@ -129,8 +131,8 @@
                     Overview
                 </p>
 
-                <p id="projectOverview" class="text-[18px] leading-[1.5] text-black">
-                </p>
+                <div id="projectOverview" class="text-[18px] leading-[1.5] text-black">
+                </div>
 
             </div>
 
@@ -142,8 +144,8 @@
                     What I worked on
                 </p>
 
-                <p id="projectWorkedOn" class="text-[18px] leading-[1.5] text-black">
-                </p>
+                <div id="projectWorkedOn" class="text-[18px] leading-[1.5] text-black">
+                </div>
 
             </div>
 
@@ -155,8 +157,8 @@
                     Challenge
                 </p>
 
-                <p id="projectChallenge" class="text-[18px] leading-[1.5] text-black">
-                </p>
+                <div id="projectChallenge" class="text-[18px] leading-[1.5] text-black">
+                </div>
 
             </div>
 
@@ -172,6 +174,19 @@
             </div>
 
 
+            <!-- Impact -->
+            <div class="mb-[40px] md:mb-[100px]">
+
+                <p class="text-[14px] text-muted mb-[8px]">
+                    Impact
+                </p>
+
+                <div id="projectImpact" class="text-[18px] leading-[1.5] text-black">
+                </div>
+
+            </div>
+
+
             <!-- Reflection -->
             <div class="pb-[80px] md:pb-[120px]">
 
@@ -179,8 +194,8 @@
                     Reflection
                 </p>
 
-                <p id="projectReflection" class="text-[18px] leading-[1.5] text-black">
-                </p>
+                <div id="projectReflection" class="text-[18px] leading-[1.5] text-black">
+                </div>
 
             </div>
 
@@ -241,6 +256,9 @@
                 const projectApproach =
                     document.getElementById("projectApproach");
 
+                const projectImpact =
+                    document.getElementById("projectImpact");
+
                 const projectReflection =
                     document.getElementById("projectReflection");
 
@@ -250,6 +268,9 @@
                 const projectVideo =
                     document.getElementById("projectVideo");
 
+                const mediaLoader =
+                    document.getElementById("mediaLoader");
+
 
                 // ----------------------------------------
                 // Load project
@@ -257,12 +278,20 @@
 
                 async function loadProject() {
 
+                    function hideMediaLoader() {
+                        if (mediaLoader) {
+                            mediaLoader.classList.add("hidden");
+                        }
+                    }
+
 
                     if (!slug) {
 
                         console.error(
                             "No project slug found."
                         );
+
+                        hideMediaLoader();
 
                         return;
 
@@ -289,12 +318,14 @@
                     );
 
 
-                    if (error) {
+                    if (error || !data) {
 
                         console.error(
                             "Error loading project:",
                             error
                         );
+
+                        hideMediaLoader();
 
                         return;
 
@@ -336,15 +367,112 @@
                     // Text content
                     // ----------------------------------------
 
-                    projectOverview.textContent =
-                        data.overview || "";
+                    // Overview
+                    projectOverview.innerHTML = "";
 
-                    projectWorkedOn.textContent =
-                        data.what_i_worked_on || "";
+                    if (data.overview) {
 
-                    projectChallenge.textContent =
-                        data.challenge || "";
+                        const points =
+                            data.overview
+                                .split("\n")
+                                .map(function (point) {
+                                    return point.trim();
+                                })
+                                .filter(function (point) {
+                                    return point.length > 0;
+                                });
 
+                        points.forEach(function (point) {
+
+                            const paragraph =
+                                document.createElement("p");
+
+                            paragraph.textContent =
+                                point;
+
+                            paragraph.className =
+                                "mb-[16px]";
+
+                            projectOverview.appendChild(
+                                paragraph
+                            );
+
+                        });
+
+                    }
+
+
+                    // What I worked on
+                    projectWorkedOn.innerHTML = "";
+
+                    if (data.what_i_worked_on) {
+
+                        const points =
+                            data.what_i_worked_on
+                                .split("\n")
+                                .map(function (point) {
+                                    return point.trim();
+                                })
+                                .filter(function (point) {
+                                    return point.length > 0;
+                                });
+
+                        points.forEach(function (point) {
+
+                            const paragraph =
+                                document.createElement("p");
+
+                            paragraph.textContent =
+                                point;
+
+                            paragraph.className =
+                                "mb-[16px]";
+
+                            projectWorkedOn.appendChild(
+                                paragraph
+                            );
+
+                        });
+
+                    }
+
+
+                    // Challenge
+                    projectChallenge.innerHTML = "";
+
+                    if (data.challenge) {
+
+                        const points =
+                            data.challenge
+                                .split("\n")
+                                .map(function (point) {
+                                    return point.trim();
+                                })
+                                .filter(function (point) {
+                                    return point.length > 0;
+                                });
+
+                        points.forEach(function (point) {
+
+                            const paragraph =
+                                document.createElement("p");
+
+                            paragraph.textContent =
+                                point;
+
+                            paragraph.className =
+                                "mb-[16px]";
+
+                            projectChallenge.appendChild(
+                                paragraph
+                            );
+
+                        });
+
+                    }
+
+
+                    // Approach
                     projectApproach.innerHTML = "";
 
                     if (data.approach) {
@@ -377,8 +505,85 @@
                         });
 
                     }
-                    projectReflection.textContent =
-                        data.reflection || "";
+
+
+                    // ----------------------------------------
+                    // Impact
+                    // ----------------------------------------
+
+                    projectImpact.innerHTML = "";
+
+                    const impactData =
+                        data.impact || data.project_impact;
+
+                    if (impactData) {
+
+                        const points =
+                            impactData
+                                .split("\n")
+                                .map(function (point) {
+                                    return point.trim();
+                                })
+                                .filter(function (point) {
+                                    return point.length > 0;
+                                });
+
+                        points.forEach(function (point) {
+
+                            const paragraph =
+                                document.createElement("p");
+
+                            paragraph.textContent =
+                                point;
+
+                            paragraph.className =
+                                "mb-[16px]";
+
+                            projectImpact.appendChild(
+                                paragraph
+                            );
+
+                        });
+
+                    }
+
+
+                    // ----------------------------------------
+                    // Reflection
+                    // ----------------------------------------
+
+                    projectReflection.innerHTML = "";
+
+                    if (data.reflection) {
+
+                        const points =
+                            data.reflection
+                                .split("\n")
+                                .map(function (point) {
+                                    return point.trim();
+                                })
+                                .filter(function (point) {
+                                    return point.length > 0;
+                                });
+
+                        points.forEach(function (point) {
+
+                            const paragraph =
+                                document.createElement("p");
+
+                            paragraph.textContent =
+                                point;
+
+                            paragraph.className =
+                                "mb-[16px]";
+
+                            projectReflection.appendChild(
+                                paragraph
+                            );
+
+                        });
+
+                    }
 
 
                     // ----------------------------------------
@@ -389,33 +594,91 @@
                         data.media_type === "video" &&
                         data.media_url
                     ) {
+                        let handled = false;
+
+                        function onVideoReady() {
+                            if (handled) return;
+                            handled = true;
+                            cleanup();
+                            hideMediaLoader();
+                            projectVideo.classList.remove(
+                                "hidden"
+                            );
+                            projectVideo.play().catch(function () { });
+                        }
+
+                        function onVideoError() {
+                            if (handled) return;
+                            handled = true;
+                            cleanup();
+                            hideMediaLoader();
+                        }
+
+                        function cleanup() {
+                            projectVideo.removeEventListener("loadeddata", onVideoReady);
+                            projectVideo.removeEventListener("canplay", onVideoReady);
+                            projectVideo.removeEventListener("error", onVideoError);
+                        }
+
+                        projectVideo.addEventListener("loadeddata", onVideoReady);
+                        projectVideo.addEventListener("canplay", onVideoReady);
+                        projectVideo.addEventListener("error", onVideoError);
 
                         projectVideo.src =
                             data.media_url;
 
-                        projectVideo.classList.remove(
-                            "hidden"
-                        );
-
                         projectVideo.load();
 
-                        projectVideo.play();
-
+                        if (projectVideo.readyState >= 2) {
+                            onVideoReady();
+                        }
                     }
-
 
                     else if (
                         data.media_type === "image" &&
                         data.media_url
                     ) {
+                        let handled = false;
+
+                        function onImageReady() {
+                            if (handled) return;
+                            handled = true;
+                            cleanup();
+                            hideMediaLoader();
+                            projectImage.classList.remove(
+                                "hidden"
+                            );
+                        }
+
+                        function onImageError() {
+                            if (handled) return;
+                            handled = true;
+                            cleanup();
+                            hideMediaLoader();
+                        }
+
+                        function cleanup() {
+                            projectImage.removeEventListener("load", onImageReady);
+                            projectImage.removeEventListener("error", onImageError);
+                        }
+
+                        projectImage.addEventListener("load", onImageReady);
+                        projectImage.addEventListener("error", onImageError);
 
                         projectImage.src =
                             data.media_url;
 
-                        projectImage.classList.remove(
-                            "hidden"
-                        );
+                        if (projectImage.complete) {
+                            if (projectImage.naturalWidth !== 0) {
+                                onImageReady();
+                            } else {
+                                onImageError();
+                            }
+                        }
+                    }
 
+                    else {
+                        hideMediaLoader();
                     }
 
                 }

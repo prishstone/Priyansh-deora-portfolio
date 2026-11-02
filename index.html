@@ -93,35 +93,40 @@
         <div id="activeProject"
           class="absolute left-0 top-0 w-[300px] h-[300px] bg-white/30 bg-[url('main-bg.jpg')] bg-cover bg-blend-overlay rounded-[24px] px-[20px] py-[10px]">
 
-          <!-- Image -->
-          <img id="projectImage" src="" class="hidden w-full h-[240px] object-contain rounded-[8px]">
+            <!-- Project Skeleton Loader -->
+            <div id="projectLoader" class="w-full">
+              <div class="w-full h-[240px] rounded-[8px] bg-white/40 border border-white/30 animate-pulse"></div>
+              <div class="w-24 h-[16px] rounded-[4px] bg-white/40 animate-pulse mt-[12px]"></div>
+            </div>
 
-          <!-- Video -->
-          <video id="projectVideo" src="" class="hidden w-full h-[240px] object-contain rounded-[8px]" autoplay muted
-            loop playsinline>
-          </video>
+            <!-- Image -->
+            <img id="projectImage" src="" class="hidden w-full h-[240px] object-contain rounded-[8px]">
 
-          <!-- Project Title -->
-          <p id="projectTitle" class="text-[16px] text-black mt-[12px]">
-            Skyone
-          </p>
+            <!-- Video -->
+            <video id="projectVideo" src="" class="hidden w-full h-[240px] object-contain rounded-[8px]" autoplay muted
+              loop playsinline>
+            </video>
 
+            <!-- Project Title -->
+            <p id="projectTitle" class="hidden min-h-[24px] text-[16px] text-black mt-[12px]">
+            </p>
+
+          </div>
+
+
+          <!-- Upcoming Project -->
+          <div id="nextProject" class="absolute left-[312px] top-[220px] w-[80px] h-[80px]  opacity-60 rounded-[8px]">
+          </div>
+
+
+
+          <!-- Dots -->
+          <div class="absolute left-0 top-[312px] w-[300px] flex justify-center gap-[8px]" id="projectDots">
+          </div>
         </div>
 
-
-        <!-- Upcoming Project -->
-        <div id="nextProject" class="absolute left-[312px] top-[220px] w-[80px] h-[80px]  opacity-60 rounded-[8px]">
-        </div>
-
-
-
-        <!-- Dots -->
-        <div class="absolute left-0 top-[312px] w-[300px] flex justify-center gap-[8px]" id="projectDots">
-        </div>
       </div>
-
     </div>
-  </div>
 
 </body>
 

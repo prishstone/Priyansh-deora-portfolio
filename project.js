@@ -52,6 +52,7 @@
 
     const projectImage = document.getElementById("projectImage");
     const projectVideo = document.getElementById("projectVideo");
+    const projectLoader = document.getElementById("projectLoader");
 
     const projectTitle = document.getElementById("projectTitle");
 
@@ -98,44 +99,107 @@
     // Update media
     // ----------------------------------------
 
+    let loadToken = 0;
+
     function updateMedia(project) {
 
         if (!project) {
             return;
         }
 
+        const currentToken = ++loadToken;
 
-        // Hide both
+        // Show skeleton loader while media is loading
+        if (projectLoader) {
+            projectLoader.classList.remove("hidden");
+        }
+
+        projectTitle.classList.add("hidden");
+
+        // Hide both media elements
         projectImage.classList.add("hidden");
-
         projectVideo.classList.add("hidden");
-
 
         // Stop video
         projectVideo.pause();
 
+        function reveal(mediaEl) {
+            if (currentToken !== loadToken) return;
+
+            if (projectLoader) {
+                projectLoader.classList.add("hidden");
+            }
+
+            if (mediaEl) {
+                mediaEl.classList.remove("hidden");
+            }
+
+            projectTitle.textContent = project.title || "";
+            projectTitle.classList.remove("hidden");
+        }
+
+        if (!project.image) {
+            reveal(null);
+            return;
+        }
 
         // Video
         if (project.type === "video") {
+            let handled = false;
+
+            function onVideoReady() {
+                if (handled || currentToken !== loadToken) return;
+                handled = true;
+                cleanup();
+                reveal(projectVideo);
+                projectVideo.play().catch(function () { });
+            }
+
+            function onVideoError() {
+                if (handled || currentToken !== loadToken) return;
+                handled = true;
+                cleanup();
+                reveal(null);
+            }
+
+            function cleanup() {
+                projectVideo.removeEventListener("loadeddata", onVideoReady);
+                projectVideo.removeEventListener("canplay", onVideoReady);
+                projectVideo.removeEventListener("error", onVideoError);
+            }
+
+            projectVideo.addEventListener("loadeddata", onVideoReady);
+            projectVideo.addEventListener("canplay", onVideoReady);
+            projectVideo.addEventListener("error", onVideoError);
 
             projectVideo.src = project.image;
-
-            projectVideo.classList.remove("hidden");
-
             projectVideo.load();
 
-            projectVideo.play();
-
+            if (projectVideo.readyState >= 2) {
+                onVideoReady();
+            }
         }
-
 
         // Image
         else {
+            const img = new Image();
 
-            projectImage.src = project.image;
+            img.onload = function () {
+                if (currentToken !== loadToken) return;
+                projectImage.src = project.image;
+                reveal(projectImage);
+            };
 
-            projectImage.classList.remove("hidden");
+            img.onerror = function () {
+                if (currentToken !== loadToken) return;
+                reveal(null);
+            };
 
+            img.src = project.image;
+
+            if (img.complete && img.naturalWidth !== 0) {
+                img.onload();
+            }
         }
 
     }
@@ -361,15 +425,12 @@
         setTimeout(function () {
 
 
-            // Change project content
+            // Update state
+            currentProject = nextIndex;
 
-            const project = projects[nextIndex];
 
-
-            updateMedia(project);
-
-            projectTitle.textContent =
-                project.title;
+            // Change project content & handle loading state
+            updateMedia(projects[currentProject]);
 
 
             // ----------------------------------------
@@ -540,9 +601,22 @@
                 "No published projects found."
             );
 
+            if (projectLoader) {
+                projectLoader.classList.add("hidden");
+            }
+
             return;
 
         }
+
+
+        // Preload all project images in the background so switching is instant
+        projects.forEach(function (p) {
+            if (p.type !== "video" && p.image) {
+                const preload = new Image();
+                preload.src = p.image;
+            }
+        });
 
 
         // Create dots
@@ -559,18 +633,10 @@
 
 
         // Load first project
-
-        updateMedia(
-            projects[currentProject]
-        );
-
-
-        projectTitle.textContent =
-            projects[currentProject].title;
+        updateMedia(projects[currentProject]);
 
 
         // Click project → detail page
-
         activeProject.addEventListener(
             "click",
             openProject
