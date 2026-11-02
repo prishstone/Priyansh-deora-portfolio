@@ -125,7 +125,7 @@
 
 
             <!-- Overview -->
-            <div class="mb-[80px] md:mb-[100px] md:-mt-[calc(50vh-100px)]">
+            <div id="overviewSection" class="mb-[80px] md:mb-[100px] md:-mt-[calc(50vh-100px)]">
 
                 <p class="text-[14px] text-muted mb-[8px]">
                     Overview
@@ -138,7 +138,7 @@
 
 
             <!-- What I worked on -->
-            <div class="mb-[80px] md:mb-[100px]">
+            <div id="workedOnSection" class="mb-[80px] md:mb-[100px]">
 
                 <p class="text-[14px] text-muted mb-[8px]">
                     What I worked on
@@ -151,7 +151,7 @@
 
 
             <!-- Challenge -->
-            <div class="mb-[80px] md:mb-[100px]">
+            <div id="challengeSection" class="mb-[80px] md:mb-[100px]">
 
                 <p class="text-[14px] text-muted mb-[8px]">
                     Challenge
@@ -164,7 +164,7 @@
 
 
             <!-- Approach -->
-            <div class="mb-[40px] md:mb-[100px]">
+            <div id="approachSection" class="mb-[40px] md:mb-[100px]">
                 <p class="text-[14px] text-muted mb-[8px]">
                     Approach
                 </p>
@@ -175,7 +175,7 @@
 
 
             <!-- Impact -->
-            <div class="mb-[40px] md:mb-[100px]">
+            <div id="impactSection" class="mb-[40px] md:mb-[100px]">
 
                 <p class="text-[14px] text-muted mb-[8px]">
                     Impact
@@ -188,7 +188,7 @@
 
 
             <!-- Reflection -->
-            <div class="pb-[80px] md:pb-[120px]">
+            <div id="reflectionSection" class="pb-[80px] md:pb-[120px]">
 
                 <p class="text-[14px] text-muted mb-[8px]">
                     Reflection
@@ -244,20 +244,38 @@
                 const projectLinkContainer =
                     document.getElementById("projectLinkContainer");
 
+                const overviewSection =
+                    document.getElementById("overviewSection");
+
                 const projectOverview =
                     document.getElementById("projectOverview");
+
+                const workedOnSection =
+                    document.getElementById("workedOnSection");
 
                 const projectWorkedOn =
                     document.getElementById("projectWorkedOn");
 
+                const challengeSection =
+                    document.getElementById("challengeSection");
+
                 const projectChallenge =
                     document.getElementById("projectChallenge");
+
+                const approachSection =
+                    document.getElementById("approachSection");
 
                 const projectApproach =
                     document.getElementById("projectApproach");
 
+                const impactSection =
+                    document.getElementById("impactSection");
+
                 const projectImpact =
                     document.getElementById("projectImpact");
+
+                const reflectionSection =
+                    document.getElementById("reflectionSection");
 
                 const projectReflection =
                     document.getElementById("projectReflection");
@@ -347,10 +365,14 @@
                     // Project link
                     // ----------------------------------------
 
-                    if (data.project_link) {
+                    if (data.project_link && data.project_link.trim()) {
 
                         projectLink.href =
                             data.project_link;
+
+                        projectLinkContainer.classList.remove(
+                            "hidden"
+                        );
 
                     }
 
@@ -364,226 +386,118 @@
 
 
                     // ----------------------------------------
-                    // Text content
+                    // Text content (dynamic sections)
                     // ----------------------------------------
 
-                    // Overview
-                    projectOverview.innerHTML = "";
+                    function renderSectionContent(sectionContainer, contentElement, content) {
+                        contentElement.innerHTML = "";
 
-                    if (data.overview) {
+                        const hasText =
+                            content !== null &&
+                            content !== undefined &&
+                            (typeof content === "string"
+                                ? content.trim().length > 0
+                                : Boolean(content && String(content).trim().length > 0));
 
-                        const points =
-                            data.overview
-                                .split("\n")
-                                .map(function (point) {
-                                    return point.trim();
-                                })
-                                .filter(function (point) {
-                                    return point.length > 0;
-                                });
+                        if (!hasText) {
+                            if (sectionContainer) {
+                                sectionContainer.classList.add("hidden");
+                            }
+                            return false;
+                        }
 
-                        points.forEach(function (point) {
+                        const rawPoints =
+                            typeof content === "string"
+                                ? content.split("\n")
+                                : Array.isArray(content)
+                                    ? content
+                                    : [String(content)];
 
-                            const paragraph =
-                                document.createElement("p");
+                        const points = rawPoints
+                            .map(function (point) {
+                                return String(point).trim();
+                            })
+                            .filter(function (point) {
+                                return point.length > 0;
+                            });
 
-                            paragraph.textContent =
-                                point;
+                        if (points.length === 0) {
+                            if (sectionContainer) {
+                                sectionContainer.classList.add("hidden");
+                            }
+                            return false;
+                        }
 
-                            paragraph.className =
-                                "mb-[16px]";
-
-                            projectOverview.appendChild(
-                                paragraph
-                            );
-
-                        });
-
-                    }
-
-
-                    // What I worked on
-                    projectWorkedOn.innerHTML = "";
-
-                    if (data.what_i_worked_on) {
-
-                        const points =
-                            data.what_i_worked_on
-                                .split("\n")
-                                .map(function (point) {
-                                    return point.trim();
-                                })
-                                .filter(function (point) {
-                                    return point.length > 0;
-                                });
+                        if (sectionContainer) {
+                            sectionContainer.classList.remove("hidden");
+                        }
 
                         points.forEach(function (point) {
-
-                            const paragraph =
-                                document.createElement("p");
-
-                            paragraph.textContent =
-                                point;
-
-                            paragraph.className =
-                                "mb-[16px]";
-
-                            projectWorkedOn.appendChild(
-                                paragraph
-                            );
-
+                            const paragraph = document.createElement("p");
+                            paragraph.textContent = point;
+                            paragraph.className = "mb-[16px]";
+                            contentElement.appendChild(paragraph);
                         });
 
+                        return true;
                     }
 
+                    // Render each section independently
+                    renderSectionContent(
+                        overviewSection,
+                        projectOverview,
+                        data.overview
+                    );
 
-                    // Challenge
-                    projectChallenge.innerHTML = "";
+                    renderSectionContent(
+                        workedOnSection,
+                        projectWorkedOn,
+                        data.what_i_worked_on
+                    );
 
-                    if (data.challenge) {
+                    renderSectionContent(
+                        challengeSection,
+                        projectChallenge,
+                        data.challenge
+                    );
 
-                        const points =
-                            data.challenge
-                                .split("\n")
-                                .map(function (point) {
-                                    return point.trim();
-                                })
-                                .filter(function (point) {
-                                    return point.length > 0;
-                                });
+                    renderSectionContent(
+                        approachSection,
+                        projectApproach,
+                        data.approach
+                    );
 
-                        points.forEach(function (point) {
+                    renderSectionContent(
+                        impactSection,
+                        projectImpact,
+                        data.impact || data.project_impact
+                    );
 
-                            const paragraph =
-                                document.createElement("p");
+                    renderSectionContent(
+                        reflectionSection,
+                        projectReflection,
+                        data.reflection
+                    );
 
-                            paragraph.textContent =
-                                point;
+                    // Ensure the first visible section aligns cleanly with desktop visual
+                    const contentSections = [
+                        overviewSection,
+                        workedOnSection,
+                        challengeSection,
+                        approachSection,
+                        impactSection,
+                        reflectionSection
+                    ];
 
-                            paragraph.className =
-                                "mb-[16px]";
-
-                            projectChallenge.appendChild(
-                                paragraph
-                            );
-
-                        });
-
-                    }
-
-
-                    // Approach
-                    projectApproach.innerHTML = "";
-
-                    if (data.approach) {
-
-                        const points =
-                            data.approach
-                                .split("\n")
-                                .map(function (point) {
-                                    return point.trim();
-                                })
-                                .filter(function (point) {
-                                    return point.length > 0;
-                                });
-
-                        points.forEach(function (point) {
-
-                            const paragraph =
-                                document.createElement("p");
-
-                            paragraph.textContent =
-                                point;
-
-                            paragraph.className =
-                                "mb-[16px]";
-
-                            projectApproach.appendChild(
-                                paragraph
-                            );
-
-                        });
-
-                    }
-
-
-                    // ----------------------------------------
-                    // Impact
-                    // ----------------------------------------
-
-                    projectImpact.innerHTML = "";
-
-                    const impactData =
-                        data.impact || data.project_impact;
-
-                    if (impactData) {
-
-                        const points =
-                            impactData
-                                .split("\n")
-                                .map(function (point) {
-                                    return point.trim();
-                                })
-                                .filter(function (point) {
-                                    return point.length > 0;
-                                });
-
-                        points.forEach(function (point) {
-
-                            const paragraph =
-                                document.createElement("p");
-
-                            paragraph.textContent =
-                                point;
-
-                            paragraph.className =
-                                "mb-[16px]";
-
-                            projectImpact.appendChild(
-                                paragraph
-                            );
-
-                        });
-
-                    }
-
-
-                    // ----------------------------------------
-                    // Reflection
-                    // ----------------------------------------
-
-                    projectReflection.innerHTML = "";
-
-                    if (data.reflection) {
-
-                        const points =
-                            data.reflection
-                                .split("\n")
-                                .map(function (point) {
-                                    return point.trim();
-                                })
-                                .filter(function (point) {
-                                    return point.length > 0;
-                                });
-
-                        points.forEach(function (point) {
-
-                            const paragraph =
-                                document.createElement("p");
-
-                            paragraph.textContent =
-                                point;
-
-                            paragraph.className =
-                                "mb-[16px]";
-
-                            projectReflection.appendChild(
-                                paragraph
-                            );
-
-                        });
-
-                    }
+                    let foundFirstVisible = false;
+                    contentSections.forEach(function (sec) {
+                        if (!sec) return;
+                        sec.classList.remove("md:-mt-[calc(50vh-100px)]");
+                        if (!foundFirstVisible && !sec.classList.contains("hidden")) {
+                            sec.classList.add("md:-mt-[calc(50vh-100px)]");
+                            foundFirstVisible = true;
+                        }
+                    });
 
 
                     // ----------------------------------------
